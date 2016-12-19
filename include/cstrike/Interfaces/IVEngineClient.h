@@ -6,6 +6,14 @@ class IVEngineClient {
 			return GetVirtualFunction<void(*)(IVEngineClient*, int&, int&)>(this, 5)(this, width, height);
 		}
 
+		bool GetPlayerInfo(int index, player_info_t* infoptr) {
+			return GetVirtualFunction<bool(*)(IVEngineClient*, int, player_info_t*)>(this, 8)(this, index, infoptr);
+		}
+
+		int GetPlayerForUserID(int userid) {
+			return GetVirtualFunction<int(*)(IVEngineClient*, int)>(this, 9)(this, userid);
+		}
+
 		bool Con_IsVisible() {
 			return GetVirtualFunction<bool(*)(IVEngineClient*)>(this, 11)(this);
 		}

@@ -1,7 +1,5 @@
 #pragma once
 
-typedef unsigned long CRC32_t;
-
 class CUserCmd {
 	virtual ~CUserCmd() {};
 
