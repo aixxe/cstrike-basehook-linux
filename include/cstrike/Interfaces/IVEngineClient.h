@@ -2,6 +2,10 @@
 
 class IVEngineClient {
 	public:
+		void GetScreenSize(int& width, int& height) {
+			return GetVirtualFunction<void(*)(IVEngineClient*, int&, int&)>(this, 5)(this, width, height);
+		}
+
 		bool Con_IsVisible() {
 			return GetVirtualFunction<bool(*)(IVEngineClient*)>(this, 11)(this);
 		}
