@@ -1,5 +1,7 @@
 #pragma once
 
+typedef unsigned long CRC32_t;
+
 class CUserCmd {
 	virtual ~CUserCmd() {};
 
@@ -18,4 +20,10 @@ class CUserCmd {
 		short mousedx;
 		short mousedy;
 		bool hasbeenpredicted;
+};
+
+class CVerifiedUserCmd {
+	public:
+		CUserCmd m_cmd;
+		CRC32_t m_crc;
 };
