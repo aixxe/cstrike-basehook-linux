@@ -17,11 +17,15 @@
 #define BONE_USED_BY_VERTEX_LOD7 0x20000
 #define BONE_USED_BY_BONE_MERGE	0x40000
 
-class model_t;
+class studiohdr_t;
 
 class IVModelInfoClient {
 	public:
 		const char* GetModelName(const model_t* model) {
 			return GetVirtualFunction<const char*(*)(IVModelInfoClient*, const model_t*)>(this, 4)(this, model);
+		}
+
+		studiohdr_t* GetStudioModel(const model_t* model) {
+			return GetVirtualFunction<studiohdr_t*(*)(IVModelInfoClient*, const model_t*)>(this, 29)(this, model);
 		}
 };
