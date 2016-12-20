@@ -1,5 +1,7 @@
 #pragma once
 
+#define MULTIPLAYER_BACKUP 90
+
 #define SIGNED_GUID_LEN 32
 
 #define MAX_PLAYER_NAME_LENGTH 32
