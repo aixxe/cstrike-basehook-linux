@@ -1,7 +1,5 @@
 #pragma once
 
-extern IBaseClientDLL* clientdll;
-
 class NetVars {
 	private:
 		inline uintptr_t FindOffset(RecvTable* recv_table, const char* property_name, RecvProp** property_ptr = nullptr) {
