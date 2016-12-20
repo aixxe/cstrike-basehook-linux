@@ -96,6 +96,9 @@ bool ImGui_ImplSdl_ProcessEvent(SDL_Event* event) {
 	switch (event->type) {
 		case SDL_MOUSEWHEEL:
 		{
+			if (!io.WantCaptureMouse)
+				return false;
+
 			if (event->wheel.y > 0)
 				g_MouseWheel = 1;
 			if (event->wheel.y < 0)
@@ -104,6 +107,9 @@ bool ImGui_ImplSdl_ProcessEvent(SDL_Event* event) {
 		}
 		case SDL_MOUSEBUTTONDOWN:
 		{
+			if (!io.WantCaptureMouse)
+				return false;
+
 			if (event->button.button == SDL_BUTTON_LEFT) g_MousePressed[0] = true;
 			if (event->button.button == SDL_BUTTON_RIGHT) g_MousePressed[1] = true;
 			if (event->button.button == SDL_BUTTON_MIDDLE) g_MousePressed[2] = true;
@@ -111,12 +117,18 @@ bool ImGui_ImplSdl_ProcessEvent(SDL_Event* event) {
 		}
 		case SDL_TEXTINPUT:
 		{
+			if (!io.WantCaptureKeyboard)
+				return false;
+
 			io.AddInputCharactersUTF8(event->text.text);
 			return true;
 		}
 		case SDL_KEYDOWN:
 		case SDL_KEYUP:
 		{
+			if (!io.WantCaptureKeyboard)
+				return false;
+
 			int key = event->key.keysym.sym & ~SDLK_SCANCODE_MASK;
 			io.KeysDown[key] = (event->type == SDL_KEYDOWN);
 			io.KeyShift = ((SDL_GetModState() & KMOD_SHIFT) != 0);
@@ -217,23 +229,26 @@ void ImGui_ImplSdl_NewFrame(SDL_Window *window) {
 	io.DeltaTime = g_Time > 0.0 ? (float)(current_time - g_Time) : (float)(1.0f / 60.0f);
 	g_Time = current_time;
 
-	int mx, my;
-	Uint32 mouseMask = SDL_GetMouseState(&mx, &my);
+	if (io.WantCaptureMouse)
+	{
+		int mx, my;
+		Uint32 mouseMask = SDL_GetMouseState(&mx, &my);
 
-	if (SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)
-		io.MousePos = ImVec2((float)mx, (float)my);
-	else
-		io.MousePos = ImVec2(-1, -1);
+		if (SDL_GetWindowFlags(window) & SDL_WINDOW_MOUSE_FOCUS)
+			io.MousePos = ImVec2((float)mx, (float)my);
+		else
+			io.MousePos = ImVec2(-1, -1);
 
-	io.MouseDown[0] = g_MousePressed[0] || (mouseMask & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0;
-	io.MouseDown[1] = g_MousePressed[1] || (mouseMask & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0;
-	io.MouseDown[2] = g_MousePressed[2] || (mouseMask & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0;
-	g_MousePressed[0] = g_MousePressed[1] = g_MousePressed[2] = false;
+		io.MouseDown[0] = g_MousePressed[0] || (mouseMask & SDL_BUTTON(SDL_BUTTON_LEFT)) != 0;
+		io.MouseDown[1] = g_MousePressed[1] || (mouseMask & SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0;
+		io.MouseDown[2] = g_MousePressed[2] || (mouseMask & SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0;
+		g_MousePressed[0] = g_MousePressed[1] = g_MousePressed[2] = false;
 
-	io.MouseWheel = g_MouseWheel;
-	g_MouseWheel = 0.0f;
+		io.MouseWheel = g_MouseWheel;
+		g_MouseWheel = 0.0f;
 
-	SDL_ShowCursor(io.MouseDrawCursor ? 0: 1);
+		SDL_ShowCursor(io.MouseDrawCursor ? 0: 1);
+	}
 
 	ImGui::NewFrame();
 }
