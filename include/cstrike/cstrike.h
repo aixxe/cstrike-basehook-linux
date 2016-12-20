@@ -13,6 +13,7 @@
 #include "Structures/Vector.h"
 #include "Structures/PlayerInfo.h"
 
+#include "Classes/CShowPixelsParams.h"
 #include "Classes/CUserCmd.h"
 #include "Classes/CInput.h"
 #include "Classes/CBaseHandle.h"
