@@ -5,16 +5,16 @@
 #include "Definitions/Buttons.h"
 #include "Definitions/Const.h"
 
+#include "Utilities/Virtuals.h"
+#include "Utilities/CRC32.h"
+
 #include "Structures/Color.h"
 #include "Structures/Matrix.h"
 #include "Structures/Vector.h"
 #include "Structures/PlayerInfo.h"
 
-#include "Utilities/Virtuals.h"
-
-#include "Classes/Interface.h"
-#include "Classes/CInput.h"
 #include "Classes/CUserCmd.h"
+#include "Classes/CInput.h"
 #include "Classes/CBaseHandle.h"
 #include "Classes/CGlobalVarsBase.h"
 #include "Classes/ClientClass.h"

@@ -1,7 +1,5 @@
 #pragma once
 
-typedef unsigned long CRC32_t;
-
 typedef struct player_info_s {
 	char name[MAX_PLAYER_NAME_LENGTH];
 	int userID;
