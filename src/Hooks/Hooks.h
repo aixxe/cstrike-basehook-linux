@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Basehook.h"
+#include "../GUI/GUI.h"
 
 namespace Hooks {
 	// IBaseClientDLL

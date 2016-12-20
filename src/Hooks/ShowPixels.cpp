@@ -1,7 +1,5 @@
 #include "Hooks.h"
-
-#include <imgui/imgui.h>
-#include <imgui/imgui_impl_sdl.h>
+#include "../GUI/GUI.h"
 
 typedef void (*ShowPixels_t) (ILauncherMgr*, CShowPixelsParams*);
 
@@ -30,8 +28,25 @@ void Hooks::ShowPixels(ILauncherMgr* thisptr, CShowPixelsParams* params) {
 	// Start ImGui rendering.
 	ImGui_ImplSdl_NewFrame(window);
 
-	// Draw some test stuff.
-	ImGui::Text("Hello, world!");
+	// Enable or disable the ImGui cursor depending on the GUI visibility.
+	ImGui::GetIO().MouseDrawCursor = GUI::IsVisible;
+	ImGui::GetIO().WantCaptureMouse = GUI::IsVisible;
+	ImGui::GetIO().WantCaptureKeyboard = GUI::IsVisible;
+
+	// Handle incoming input while the menu is active.
+	if (GUI::IsVisible) {
+		SDL_Event event = {};
+
+		while (SDL_PollEvent(&event)) {
+			if (event.key.keysym.sym == SDLK_INSERT && event.type == SDL_KEYDOWN)
+				GUI::IsVisible = !GUI::IsVisible;
+
+			ImGui_ImplSdl_ProcessEvent(&event);
+		}
+	} 
+
+	// Draw GUI components.
+	GUI::Render();
 
 	// Finish ImGui rendering.
 	ImGui::Render();

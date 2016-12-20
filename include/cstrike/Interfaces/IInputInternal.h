@@ -11,8 +11,8 @@ enum MouseCodeState_t {
 
 class IInputInternal {
 	public:
-		void SetKeyCodeState(KeyCode code, bool pressed) {
-			GetVirtualFunction<void(*)(IInputInternal*, KeyCode, bool)>(this, 83)(this, code, pressed);
+		void SetKeyCodeState(KeyCode code, bool down) {
+			GetVirtualFunction<void(*)(IInputInternal*, KeyCode, bool)>(this, 83)(this, code, down);
 		}
 
 		void SetMouseCodeState(MouseCode code, MouseCodeState_t state) {
