@@ -137,3 +137,5 @@ class IMaterialSystem {
 			return GetVirtualFunction<IMaterial*(*)(IMaterialSystem*, MaterialHandle_t)>(this, 76)(this, material);
 		}
 };
+
+extern IMaterialSystem* matsystem;

@@ -17,3 +17,5 @@ class IClientEntityList {
 		virtual void SetMaxEntities(int max_entities) = 0;
 		virtual int GetMaxEntities() = 0;
 };
+
+extern IClientEntityList* entitylist;

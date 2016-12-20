@@ -109,3 +109,5 @@ class CInput {
 			cmd_verified->m_crc = cmd->GetChecksum();
 		}
 };
+
+extern CInput* input;

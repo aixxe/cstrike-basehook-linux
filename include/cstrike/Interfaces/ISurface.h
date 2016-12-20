@@ -93,3 +93,5 @@ class ISurface {
 			return GetVirtualFunction<void(*)(ISurface*, int, int, int, int)>(this, 99)(this, x, y, radius, segments);
 		}
 };
+
+extern ISurface* matsurface;

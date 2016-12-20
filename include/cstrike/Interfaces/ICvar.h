@@ -10,3 +10,5 @@ class ICvar {
 			return GetVirtualFunction<void(*)(ICvar*, const char*, ...)>(this, 24)(this, Format, Parameters...);
 		}
 };
+
+extern ICvar* cvar;

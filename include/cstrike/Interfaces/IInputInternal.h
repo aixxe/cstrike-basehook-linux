@@ -19,3 +19,5 @@ class IInputInternal {
 			GetVirtualFunction<void(*)(IInputInternal*, MouseCode, MouseCodeState_t)>(this, 84)(this, code, state);
 		}
 };
+
+extern IInputInternal* inputinternal;

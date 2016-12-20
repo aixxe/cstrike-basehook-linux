@@ -27,3 +27,5 @@ class IBaseClientDLL {
 			return GetVirtualFunction<void(*)(IBaseClientDLL*, ClientFrameStage_t)>(this, 35)(this, stage);
 		}
 };
+
+extern IBaseClientDLL* clientdll;

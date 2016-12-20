@@ -21,3 +21,5 @@ class CGlobalVarsBase {
 		int nTimestampNetworkingBase;
 		int nTimestampRandomizeWindow;
 };
+
+extern CGlobalVarsBase* globalvars;

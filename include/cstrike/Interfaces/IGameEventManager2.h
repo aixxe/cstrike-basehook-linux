@@ -46,3 +46,5 @@ class IGameEventManager2 {
 		virtual bool SerializeEvent(IGameEvent* event, bf_write* buf) = 0;
 		virtual IGameEvent* UnserializeEvent(bf_read* buf) = 0;
 };
+
+extern IGameEventManager2* gameevents;

@@ -12,3 +12,5 @@ class IPanel {
 			GetVirtualFunction<void(*)(IPanel*, VPANEL, bool, bool)>(this, 42)(this, vpanel, force_repaint, allow_force);
 		}
 };
+
+extern IPanel* panel;

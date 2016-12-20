@@ -98,3 +98,5 @@ class IVModelInfoClient {
 			return GetVirtualFunction<studiohdr_t*(*)(IVModelInfoClient*, const model_t*)>(this, 29)(this, model);
 		}
 };
+
+extern IVModelInfoClient* modelinfo;

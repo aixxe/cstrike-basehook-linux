@@ -34,3 +34,5 @@ class ILauncherMgr {
 			return GetVirtualFunction<void*(*)(ILauncherMgr*)>(this, 32)(this);
 		}
 };
+
+extern ILauncherMgr* launchermgr;

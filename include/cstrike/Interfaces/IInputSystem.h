@@ -8,3 +8,5 @@ class IInputSystem {
 			return GetVirtualFunction<bool(*)(void*, ButtonCode_t)>(this, 11)(this, button);
 		}
 };
+
+extern IInputSystem* inputsystem;

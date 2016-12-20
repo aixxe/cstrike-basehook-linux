@@ -53,3 +53,5 @@ class IVModelRender {
 			GetVirtualFunction<void(*)(IVModelRender*, DrawModelState_t const&, ModelRenderInfo_t const&, matrix3x4_t*)>(this, 19)(this, state, info, bone);
 		}
 };
+
+extern IVModelRender* modelrender;

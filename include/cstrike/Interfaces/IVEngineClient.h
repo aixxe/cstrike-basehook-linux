@@ -62,3 +62,5 @@ class IVEngineClient {
 			return GetVirtualFunction<void(*)(IVEngineClient*, const char*)>(this, 106)(this, command);
 		}
 };
+
+extern IVEngineClient* engine;

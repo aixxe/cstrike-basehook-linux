@@ -6,3 +6,5 @@ class IVDebugOverlay {
 			return GetVirtualFunction<int(*)(IVDebugOverlay*, const Vector&, Vector&)>(this, 9)(this, world, screen) == 0;
 		}
 };
+
+extern IVDebugOverlay* debugoverlay;
