@@ -41,8 +41,6 @@ CGlobalVarsBase* globalvars = nullptr;
 
 CRC32_ProcessBufferFn CRC32_ProcessBuffer = NULL;
 
-NetVars netvars;
-
 std::unique_ptr<VMTHook> sdl_hook;
 std::unique_ptr<VMTHook> panel_hook;
 std::unique_ptr<VMTHook> clientdll_hook;
