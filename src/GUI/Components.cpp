@@ -8,7 +8,12 @@ void GUI::DrawFramerateCounter() {
 }
 
 void GUI::DrawConfigurationWindow() {
-	ImGui::Begin("cstrike-basehook-linux", nullptr);
-	ImGui::Text("Hello, world!");
+	ImGui::Begin("Settings", nullptr);
+	ImGui::PushItemWidth(-1);
+
+	ImGui::Checkbox("Auto-bunnyhop", &GUI::BunnyHop::Enabled);
+	ImGui::Spacing();
+	
+	ImGui::PopItemWidth();
 	ImGui::End();
 }

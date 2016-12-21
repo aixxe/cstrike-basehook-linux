@@ -10,3 +10,5 @@
 #include "Utilities/FindPattern.h"
 #include "Utilities/Interfaces.h"
 #include "Utilities/NetVars.h"
+
+#include "Game/Entity.h"

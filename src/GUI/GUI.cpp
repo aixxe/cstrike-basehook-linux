@@ -2,6 +2,8 @@
 
 bool GUI::IsVisible = false;
 
+bool GUI::BunnyHop::Enabled = true;
+
 void GUI::Render() {
 	// Draw various global components.
 	GUI::DrawFramerateCounter();

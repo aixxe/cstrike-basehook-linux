@@ -6,6 +6,10 @@
 namespace GUI {
 	extern bool IsVisible;
 
+	namespace BunnyHop {
+		extern bool Enabled;
+	}
+
 	void DrawFramerateCounter();
 	void DrawConfigurationWindow();
 

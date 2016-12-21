@@ -12,10 +12,17 @@ void Hooks::CreateMove(IBaseClientDLL* thisptr, int sequence, float frametime, b
 	// Get the current user command.
 	CUserCmd* cmd = input->GetUserCmd(sequence);
 
-	if (cmd->buttons & IN_JUMP) {
-		cmd->buttons |= IN_ATTACK;
-	}
+	// Get the LocalPlayer entity.
+	C_BasePlayer* localplayer = static_cast<C_BasePlayer*>(entitylist->GetClientEntity(engine->GetLocalPlayer()));
+	
+	// No need to validate if we stop here since we haven't changed anything yet.
+	if (!localplayer)
+		return;
 
+	// Auto-bunnyhop when jump key is held. (releases the IN_JUMP button when on ground)
+	if (GUI::BunnyHop::Enabled && cmd->buttons & IN_JUMP && !(localplayer->GetFlags() & FL_ONGROUND))
+		cmd->buttons &= ~IN_JUMP;
+	
 	// Re-calculate the command checksum after making changes.
 	input->VerifyUserCmd(cmd, sequence);
 }
