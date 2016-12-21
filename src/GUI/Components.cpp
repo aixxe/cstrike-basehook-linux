@@ -13,6 +13,10 @@ void GUI::DrawConfigurationWindow() {
 
 	ImGui::Checkbox("Auto-bunnyhop", &GUI::BunnyHop::Enabled);
 	ImGui::Spacing();
+
+	ImGui::Checkbox("No sky", &GUI::NoSky::Enabled);
+	ImGui::ColorEdit3("##No sky color", GUI::NoSky::Color);
+	ImGui::Spacing();
 	
 	ImGui::PopItemWidth();
 	ImGui::End();
