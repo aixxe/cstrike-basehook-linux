@@ -17,6 +17,10 @@ void GUI::DrawConfigurationWindow() {
 	ImGui::Checkbox("No sky", &GUI::NoSky::Enabled);
 	ImGui::ColorEdit3("##No sky color", GUI::NoSky::Color);
 	ImGui::Spacing();
+
+	ImGui::Checkbox("ASUS walls", &GUI::ASUS::Enabled);
+	ImGui::ColorEdit4("##ASUS walls color", GUI::ASUS::Color, true);
+	ImGui::Spacing();
 	
 	ImGui::PopItemWidth();
 	ImGui::End();

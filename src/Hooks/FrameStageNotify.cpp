@@ -21,6 +21,17 @@ void Hooks::FrameStageNotify(IBaseClientDLL* thisptr, ClientFrameStage_t stage) 
 
 				continue;
 			}
+
+			if (!strcmp(material->GetTextureGroupName(), TEXTURE_GROUP_WORLD)) {
+				// ASUS walls.
+				if (GUI::ASUS::Enabled) {
+					material->ColorModulate(GUI::ASUS::Color[0], GUI::ASUS::Color[1], GUI::ASUS::Color[2]);
+					material->AlphaModulate(GUI::ASUS::Color[3]);
+				} else {
+					material->ColorModulate(1, 1, 1);
+					material->AlphaModulate(1);
+				}
+			}
 		}
 	}
 

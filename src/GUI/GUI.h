@@ -15,6 +15,11 @@ namespace GUI {
 		extern float Color[3];
 	}
 
+	namespace ASUS {
+		extern bool Enabled;
+		extern float Color[4];
+	}
+
 	void DrawFramerateCounter();
 	void DrawConfigurationWindow();
 
