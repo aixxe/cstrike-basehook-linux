@@ -24,6 +24,7 @@
 ICvar* cvar = nullptr;
 IPanel* panel = nullptr;
 ISurface* matsurface = nullptr;
+IEngineVGui* enginevgui = nullptr;
 IVModelInfoClient* modelinfo = nullptr;
 ILauncherMgr* launchermgr = nullptr;
 IInputSystem* inputsystem = nullptr;
@@ -41,9 +42,12 @@ CGlobalVarsBase* globalvars = nullptr;
 
 CRC32_ProcessBufferFn CRC32_ProcessBuffer = NULL;
 
+StartDrawing_t StartDrawing = NULL;
+FinishDrawing_t FinishDrawing = NULL;
+
 std::unique_ptr<VMTHook> sdl_hook;
-std::unique_ptr<VMTHook> panel_hook;
 std::unique_ptr<VMTHook> clientdll_hook;
+std::unique_ptr<VMTHook> enginevgui_hook;
 std::unique_ptr<VMTHook> modelrender_hook;
 std::unique_ptr<VMTHook> inputinternal_hook;
 
@@ -52,6 +56,7 @@ extern "C" void __attribute__((constructor)) css_basehook_open() {
 	cvar = GetInterface<ICvar>("bin/libvstdlib.so", "VEngineCvar0");
 	panel = GetInterface<IPanel>("bin/vgui2.so", "VGUI_Panel0");
 	matsurface = GetInterface<ISurface>("bin/vguimatsurface.so", "VGUI_Surface0");
+	enginevgui = GetInterface<IEngineVGui>("bin/engine.so", "VEngineVGui0");
 	modelinfo = GetInterface<IVModelInfoClient>("bin/engine.so", "VModelInfoClient0"); 
 	inputsystem = GetInterface<IInputSystem>("bin/inputsystem.so", "InputSystemVersion0");
 	inputinternal = GetInterface<IInputInternal>("bin/vgui2.so", "VGUI_InputInternal0");
@@ -73,9 +78,18 @@ extern "C" void __attribute__((constructor)) css_basehook_open() {
 	clientdll_hook->HookFunction(reinterpret_cast<void*>(Hooks::CreateMove), 21);
 	clientdll_hook->HookFunction(reinterpret_cast<void*>(Hooks::FrameStageNotify), 35);
 
-	// Hook 'PaintTraverse' from IPanel.
-	panel_hook = std::make_unique<VMTHook>(panel);
-	panel_hook->HookFunction(reinterpret_cast<void*>(Hooks::PaintTraverse), 42);
+	// Scan for 'StartDrawing' and 'FinishDrawing' from CMatSystemSurface.
+	StartDrawing = reinterpret_cast<StartDrawing_t>(
+		FindPattern("bin/vguimatsurface.so", "\x55\x89\xE5\x53\x83\xEC\x74\x80\x3D\x00\x00\x00\x00\x00", "xxxxxxxxx????x")
+	);
+
+	FinishDrawing = reinterpret_cast<FinishDrawing_t>(
+		FindPattern("bin/vguimatsurface.so", "\x55\x89\xE5\x53\x83\xEC\x24\xC7\x04\x00\x00\x00\x00\x00\xE8\x00\x00\x00\x00\xA1", "xxxxxxxxx????xx????x")
+	);
+
+	// Hook 'Paint' from IEngineVGui.
+	enginevgui_hook = std::make_unique<VMTHook>(enginevgui);
+	enginevgui_hook->HookFunction(reinterpret_cast<void*>(Hooks::Paint), 14);
 
 	// Hook 'DrawModelExecute' from IVModelRender.
 	modelrender_hook = std::make_unique<VMTHook>(modelrender);

@@ -31,6 +31,7 @@
 #include "Interfaces/ICvar.h"
 #include "Interfaces/IPanel.h"
 #include "Interfaces/ISurface.h"
+#include "Interfaces/IEngineVGui.h"
 #include "Interfaces/IVModelInfo.h"
 #include "Interfaces/ILauncherMgr.h"
 #include "Interfaces/IInputSystem.h"
