@@ -5,9 +5,11 @@ Internal project base for Counter-Strike: Source on Linux. Includes full OpenGL 
 ### Features
 * Retrieves interfaces directly from the *s_pInterfaceRegs* linked list.
 * ImGui drawing and input handling via *ILauncherMgr* virtual hooks.
+* Engine drawing with *ISurface* functions via *IEngineVGui::Paint* hook.
 * *IBaseClientDLL::CreateMove* hook with *CUserCmd* checksum validation.
 * *CInput* and *CGlobalVars* pointers retrieved from IBaseClientDLL virtuals.
 * Can easily be unloaded, modified and reloaded without restarting the game.
+* Includes an example game event listener in a self-contained class.
 
 ### Requirements
 

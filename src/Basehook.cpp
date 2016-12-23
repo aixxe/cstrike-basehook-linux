@@ -20,6 +20,7 @@
 
 #include "Basehook.h"
 #include "Hooks/Hooks.h"
+#include "Events/TestListener.h"
 
 ICvar* cvar = nullptr;
 IPanel* panel = nullptr;
@@ -50,6 +51,8 @@ std::unique_ptr<VMTHook> clientdll_hook;
 std::unique_ptr<VMTHook> enginevgui_hook;
 std::unique_ptr<VMTHook> modelrender_hook;
 std::unique_ptr<VMTHook> inputinternal_hook;
+
+std::unique_ptr<TestEventListener> testevent;
 
 extern "C" void __attribute__((constructor)) css_basehook_open() {
 	// Get class pointers from game libraries using partial interface versions.
@@ -118,6 +121,9 @@ extern "C" void __attribute__((constructor)) css_basehook_open() {
 	globalvars = **reinterpret_cast<CGlobalVarsBase***>(
 		clientdll_hook->GetOriginalFunction<uintptr_t>(11) + 8
 	);
+
+	// Register an event listener.
+	testevent = std::make_unique<TestEventListener>("player_footstep");
 }
 
 extern "C" void __attribute__((destructor)) css_basehook_close() {
