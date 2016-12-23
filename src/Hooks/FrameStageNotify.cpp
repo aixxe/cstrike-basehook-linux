@@ -2,6 +2,12 @@
 
 typedef void (*FrameStageNotify_t) (IBaseClientDLL*, ClientFrameStage_t);
 
+bool GUI::NoSky::Enabled = true;
+float GUI::NoSky::Color[3] = {0, 0, 0.275};
+
+bool GUI::ASUS::Enabled = true;
+float GUI::ASUS::Color[4] = {1, 1, 1, 0.75};
+
 void Hooks::FrameStageNotify(IBaseClientDLL* thisptr, ClientFrameStage_t stage) {
 	// Get the original function and store it statically.
 	static FrameStageNotify_t oFrameStageNotify = clientdll_hook->GetOriginalFunction<FrameStageNotify_t>(35);

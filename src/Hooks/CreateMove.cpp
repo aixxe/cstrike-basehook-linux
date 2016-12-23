@@ -2,6 +2,8 @@
 
 typedef void (*CreateMove_t) (IBaseClientDLL*, int, float, bool);
 
+bool GUI::BunnyHop::Enabled = true;
+
 void Hooks::CreateMove(IBaseClientDLL* thisptr, int sequence, float frametime, bool active) {
 	// Get the original function and store it statically.
 	static CreateMove_t oCreateMove = clientdll_hook->GetOriginalFunction<CreateMove_t>(21);
