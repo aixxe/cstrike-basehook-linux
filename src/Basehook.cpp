@@ -71,7 +71,7 @@ extern "C" void __attribute__((constructor)) css_basehook_open() {
 	entitylist = GetInterface<IClientEntityList>("bin/client.so", "VClientEntityList0");
 	gameevents = GetInterface<IGameEventManager2>("bin/engine.so", "GAMEEVENTSMANAGER002");
 
-	// Scan for the 'CRC32_ProcessBuffer' function. 
+	// Scan for the 'CRC32_ProcessBuffer' function. (overkill, but why not?)
 	CRC32_ProcessBuffer = reinterpret_cast<CRC32_ProcessBufferFn>(
 		FindPattern("bin/client.so", "\x55\x89\xE5\x57\x56\x53\x83\xEC\x08\x8B\x4D\x10", "xxxxxxxxxxxx")
 	);
