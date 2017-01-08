@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_map>
+
 class NetVars {
 	private:
 		static uintptr_t FindOffset(RecvTable* recv_table, const char* property_name, RecvProp** property_ptr = nullptr) {
@@ -29,9 +31,26 @@ class NetVars {
 		}
 	public:
 		static uintptr_t GetOffset(const char* class_name, const char* property_name, RecvProp** property_ptr = nullptr) {
+            typedef std::unordered_map<const char *, uintptr_t> PropertyCache;
+            typedef std::unordered_map<const char *, PropertyCache> ClassCache;
+            static ClassCache classCache;
+            
+            ClassCache::iterator itrClassCache = classCache.find(class_name);
+            if(itrClassCache != classCache.end())
+            {
+                PropertyCache &propertyCache = itrClassCache->second;
+                PropertyCache::iterator itrPropertyCache = propertyCache.find(property_name);
+                if(itrPropertyCache != propertyCache.end())
+                {
+                    return itrPropertyCache->second;
+                }
+            }
+            
 			for (ClientClass* class_ptr = clientdll->GetAllClasses(); class_ptr; class_ptr = class_ptr->m_pNext) {
 				if (strcmp(class_ptr->m_pNetworkName, class_name) == 0) {
-					return FindOffset(class_ptr->m_pRecvTable, property_name, property_ptr);
+                    uintptr_t result = FindOffset(class_ptr->m_pRecvTable, property_name, property_ptr);
+                    classCache[class_name][property_name] = result;
+					return result;
 				}
 			}
 
