@@ -49,8 +49,9 @@ class NetVars {
             
 			for (ClientClass* class_ptr = clientdll->GetAllClasses(); class_ptr; class_ptr = class_ptr->m_pNext) {
 				if (strcmp(class_ptr->m_pNetworkName, class_name) == 0) {
-                    uintptr_t result = FindOffset(class_ptr->m_pRecvTable, property_name, property_ptr);
-                    class_cache[class_name][property_name] = result;
+					uintptr_t result = FindOffset(class_ptr->m_pRecvTable, property_name, property_ptr);
+					class_cache[class_name][property_name] = result;
+					
 					return result;
 				}
 			}
