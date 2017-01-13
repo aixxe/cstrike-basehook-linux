@@ -18,7 +18,7 @@ You will need **cmake**, a relatively up-to-date C++ compiler and 32-bit **SDL2*
 If you are on a 64-bit system you may need to enable 32-bit repositories.
 
 ```
-pacman -S cmake base-devel lib32-sdl2
+pacman -S cmake base-devel lib32-sdl2 gcc-multilib
 ```
 
 ### Usage
