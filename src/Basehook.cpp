@@ -19,8 +19,10 @@
 */
 
 #include "Basehook.h"
+
 #include "Hooks/Hooks.h"
 #include "Events/TestListener.h"
+#include "Utilities/FindPattern.h"
 
 ICvar* cvar = nullptr;
 IPanel* panel = nullptr;
@@ -66,14 +68,14 @@ extern "C" void __attribute__((constructor)) css_basehook_open() {
 	engine = GetInterface<IVEngineClient>("bin/engine.so", "VEngineClient0");
 	modelrender = GetInterface<IVModelRender>("bin/engine.so", "VEngineModel0");
 	debugoverlay = GetInterface<IVDebugOverlay>("bin/engine.so", "VDebugOverlay0");
-	clientdll = GetInterface<IBaseClientDLL>("bin/client.so", "VClient0");
+	clientdll = GetInterface<IBaseClientDLL>("cstrike/bin/client.so", "VClient0");
 	matsystem = GetInterface<IMaterialSystem>("bin/materialsystem.so", "VMaterialSystem0");
-	entitylist = GetInterface<IClientEntityList>("bin/client.so", "VClientEntityList0");
+	entitylist = GetInterface<IClientEntityList>("cstrike/bin/client.so", "VClientEntityList0");
 	gameevents = GetInterface<IGameEventManager2>("bin/engine.so", "GAMEEVENTSMANAGER002");
 
 	// Scan for the 'CRC32_ProcessBuffer' function. (overkill, but why not?)
 	CRC32_ProcessBuffer = reinterpret_cast<CRC32_ProcessBufferFn>(
-		FindPattern("bin/client.so", "\x55\x89\xE5\x57\x56\x53\x83\xEC\x08\x8B\x4D\x10", "xxxxxxxxxxxx")
+		FindPattern("cstrike/bin/client.so", "\x55\x89\xE5\x57\x56\x53\x83\xEC\x08\x8B\x4D\x10", "xxxxxxxxxxxx")
 	);
 
 	// Hook 'FrameStageNotify' and 'CreateMove' from IBaseClientDLL.
